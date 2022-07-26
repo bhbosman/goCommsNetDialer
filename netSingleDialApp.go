@@ -10,7 +10,6 @@ import (
 
 func NewSingleNetDialApp(
 	name string,
-	connectionInstancePrefix string,
 	options ...common.INetManagerSettingsApply) common.NetAppFuncInParamsCallback {
 	return func(params common.NetAppFuncInParams) messages.CreateAppCallback {
 		return messages.CreateAppCallback{
@@ -49,7 +48,7 @@ func NewSingleNetDialApp(
 					time.Hour,
 					time.Hour,
 					name,
-					connectionInstancePrefix,
+					name,
 					params,
 					callbackForConnectionInstance,
 					fx.Options(dialSettings.MoreOptions...),
