@@ -2,6 +2,7 @@ package goCommsNetDialer
 
 import (
 	"context"
+	"github.com/bhbosman/goCommsDefinitions"
 	"github.com/bhbosman/goConnectionManager"
 	"github.com/bhbosman/gocommon/GoFunctionCounter"
 	"github.com/bhbosman/gocommon/Services/IFxService"
@@ -42,7 +43,7 @@ func (self *netSingleDialManager) Start(_ context.Context) error {
 				if sem.Acquire(self.CancelCtx, 1) != nil {
 					break loop
 				}
-				instanceApp, cancellationContext, err := self.dialll(dm, releaseFunc)
+				instanceApp, cancellationContext, connctionId, err := self.dialll(dm, releaseFunc)
 				if err != nil {
 					self.ZapLogger.Error("Error on dial", zap.Error(err))
 					if opErr, ok := err.(*net.OpError); ok {
@@ -58,29 +59,42 @@ func (self *netSingleDialManager) Start(_ context.Context) error {
 				if err != nil {
 					self.ZapLogger.Error("ddddd", zap.Error(err))
 				}
+				// This is the cancellation function that must be called that will call the fxApp.Stop()
+				// this can be triggered from two places
+				// 1. from the connection itself, by calling the CancelFunc on the connecion stack
+				// 2. from the service manager that can shut the whole dialing connection down
+				// For all two of this instances, we have to register the same method and make sure it is only executed once
 
-				err = cancellationContext.Add(
-					func() func() {
-						b := false
-						return func() {
-							if !b {
-								b = true
-								stopErr := instanceApp.Stop(context.Background())
-								if stopErr != nil {
-									self.ZapLogger.Error(
-										"Stopping error. not really a problem. informational",
-										zap.Error(stopErr))
-								}
+				cc := []goCommsDefinitions.ICancellationContext{
+					self.CancellationContext,
+					cancellationContext,
+				}
+				cancelFunction := func(connectionId string, CancellationContext ...goCommsDefinitions.ICancellationContext) func() {
+					b := false
+					return func() {
+						if !b {
+							b = true
+							stopErr := instanceApp.Stop(context.Background())
+							if stopErr != nil {
+								self.ZapLogger.Error(
+									"Stopping error. not really a problem. informational",
+									zap.Error(stopErr))
+							}
+							for _, instance := range CancellationContext {
+								_ = instance.Remove(connectionId)
 							}
 						}
-					}(),
-				)
-				if err != nil {
-					self.ZapLogger.Error("ddddd", zap.Error(err))
-				}
+					}
+				}(connctionId, cc...)
 
+				for _, c := range cc {
+					err = c.Add(connctionId, cancelFunction)
+					if err != nil {
+						self.ZapLogger.Error("ddddd", zap.Error(err))
+					}
+				}
 			}
-			//
+
 			self.ZapLogger.Info("Exit loop")
 		},
 	)
@@ -105,6 +119,7 @@ func newSingleNetDialManager(
 		ConnectionInstancePrefix                 string `name:"ConnectionInstancePrefix"`
 		AdditionalFxOptionsForConnectionInstance func() fx.Option
 		GoFunctionCounter                        GoFunctionCounter.IService
+		CancellationContext                      goCommsDefinitions.ICancellationContext
 	}) (*netSingleDialManager, error) {
 
 	if params.ConnectionManager.State() != IFxService.Started {
@@ -122,8 +137,8 @@ func newSingleNetDialManager(
 		params.ProxyUrl,
 		params.ConnectionUrl,
 		params.CancelCtx,
+		params.CancellationContext,
 		params.ConnectionManager,
-		//params.Options.userContext,
 		params.ZapLogger,
 		params.UniqueSessionNumber,
 		params.AdditionalFxOptionsForConnectionInstance,

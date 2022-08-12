@@ -2,6 +2,7 @@ package goCommsNetDialer
 
 import (
 	"context"
+	"github.com/bhbosman/goCommsDefinitions"
 	"github.com/bhbosman/gocommon/messages"
 	"github.com/bhbosman/gocomms/common"
 	"go.uber.org/fx"
@@ -53,22 +54,26 @@ func NewSingleNetDialApp(
 					callbackForConnectionInstance,
 					fx.Options(dialSettings.MoreOptions...),
 					fx.Provide(fx.Annotated{Target: newSingleNetDialManager}),
-					fx.Provide(fx.Annotated{
-						Target: func() *DialAppSettings {
-							return dialSettings
+					fx.Provide(
+						fx.Annotated{
+							Target: func() *DialAppSettings {
+								return dialSettings
+							},
 						},
-					}),
+					),
 					fx.Invoke(
 						func(
 							params struct {
 								fx.In
-								NetManager     *netSingleDialManager
-								CancelFunction context.CancelFunc
-								Lifecycle      fx.Lifecycle
+								NetManager          *netSingleDialManager
+								CancelFunction      context.CancelFunc
+								CancellationContext goCommsDefinitions.ICancellationContext
+								Lifecycle           fx.Lifecycle
 							},
 						) {
 							hook := fx.Hook{
 								OnStart: func(ctx context.Context) error {
+									//params.NetManager.CancelCtx
 									return params.NetManager.Start(ctx)
 								},
 								OnStop: func(ctx context.Context) error {

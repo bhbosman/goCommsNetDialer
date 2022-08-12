@@ -19,7 +19,7 @@ type NetMultiDialManager struct {
 	netDialManager
 }
 
-func (self NetMultiDialManager) Dial(releaseFunc func()) (messages.IApp, goCommsDefinitions.ICancellationContext, error) {
+func (self NetMultiDialManager) Dial(releaseFunc func()) (messages.IApp, goCommsDefinitions.ICancellationContext, string, error) {
 	var dm iDialManager = &net.Dialer{
 		Timeout: time.Second * 30,
 	}
@@ -27,7 +27,7 @@ func (self NetMultiDialManager) Dial(releaseFunc func()) (messages.IApp, goComms
 		var err error
 		dm, err = self.sock5(dm)
 		if err != nil {
-			return nil, nil, err
+			return nil, nil, "", err
 		}
 	}
 	return self.dialll(dm, releaseFunc)
@@ -39,7 +39,7 @@ func NewMultiNetDialManager(
 	ConnectionUrl *url.URL,
 	ConnectionManager goConnectionManager.IService,
 	CancelCtx context.Context,
-	Options *DialAppSettings,
+	CancellationContext goCommsDefinitions.ICancellationContext,
 	ZapLogger *zap.Logger,
 	UniqueSessionNumber interfaces.IUniqueReferenceService,
 	ConnectionName string,
@@ -63,8 +63,8 @@ func NewMultiNetDialManager(
 		ProxyUrl,
 		ConnectionUrl,
 		CancelCtx,
+		CancellationContext,
 		ConnectionManager,
-		//Options.userContext,
 		ZapLogger,
 		UniqueSessionNumber,
 		AdditionalFxOptionsForConnectionInstance,

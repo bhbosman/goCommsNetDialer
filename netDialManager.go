@@ -25,7 +25,7 @@ func (self *netDialManager) sock5(dialManager iDialManager) (iDialManager, error
 	return proxy.SOCKS5(self.ProxyUrl.Scheme, self.ProxyUrl.Host, nil, dialManager)
 }
 
-func (self *netDialManager) dialll(dm iDialManager, releaseFunc func()) (messages.IApp, goCommsDefinitions.ICancellationContext, error) {
+func (self *netDialManager) dialll(dm iDialManager, releaseFunc func()) (messages.IApp, goCommsDefinitions.ICancellationContext, string, error) {
 	conn, err := dm.Dial("tcp4", self.ConnectionUrl.Host)
 	if err != nil {
 		if releaseFunc != nil {
@@ -34,7 +34,7 @@ func (self *netDialManager) dialll(dm iDialManager, releaseFunc func()) (message
 		self.ZapLogger.Error(
 			"Connection failed due to",
 			zap.Error(err))
-		return nil, nil, err
+		return nil, nil, "", err
 	}
 
 	temp := conn
@@ -50,20 +50,20 @@ func (self *netDialManager) dialll(dm iDialManager, releaseFunc func()) (message
 		if releaseFunc != nil {
 			releaseFunc()
 		}
-		return nil, nil, err
+		return nil, nil, "", err
 	}
 
 	connectionInstance := netBase.NewConnectionInstance(
 		self.ConnectionUrl,
 		self.UniqueSessionNumber,
 		self.ConnectionManager,
-		//self.UserContext,
 		self.CancelCtx,
 		self.AdditionalFxOptionsForConnectionInstance,
 		self.ZapLogger,
 	)
+	connectionId := self.UniqueSessionNumber.Next(self.ConnectionInstancePrefix)
 	instanceApp, instanceAppCtx, cancellationContext, err := connectionInstance.NewConnectionInstance(
-		self.UniqueSessionNumber.Next(self.ConnectionInstancePrefix),
+		connectionId,
 		self.GoFunctionCounter,
 		model.ClientConnection,
 		conn,
@@ -78,9 +78,9 @@ func (self *netDialManager) dialll(dm iDialManager, releaseFunc func()) (message
 	}
 	if err != nil {
 		onErr()
-		return nil, nil, err
+		return nil, nil, "", err
 	}
-	return instanceApp, cancellationContext, nil
+	return instanceApp, cancellationContext, connectionId, nil
 }
 
 func newNetDialManager(
@@ -90,8 +90,8 @@ func newNetDialManager(
 	proxyUrl *url.URL,
 	connectionUrl *url.URL,
 	cancelCtx context.Context,
+	CancellationContext goCommsDefinitions.ICancellationContext,
 	connectionManager goConnectionManager.IService,
-	//userContext interface{},
 	ZapLogger *zap.Logger,
 	uniqueSessionNumber interfaces.IUniqueReferenceService,
 	additionalFxOptionsForConnectionInstance func() fx.Option,
@@ -104,8 +104,8 @@ func newNetDialManager(
 		proxyUrl,
 		connectionUrl,
 		cancelCtx,
+		CancellationContext,
 		connectionManager,
-		//userContext,
 		ZapLogger,
 		uniqueSessionNumber,
 		additionalFxOptionsForConnectionInstance,
