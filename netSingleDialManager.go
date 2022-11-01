@@ -88,7 +88,10 @@ func (self *netSingleDialManager) Start(_ context.Context) error {
 				}(connctionId, cc...)
 
 				for _, c := range cc {
-					err = c.Add(connctionId, cancelFunction)
+					added, err := c.Add(connctionId, cancelFunction)
+					if !added {
+						self.ZapLogger.Error("could not be added")
+					}
 					if err != nil {
 						self.ZapLogger.Error("ddddd", zap.Error(err))
 					}
