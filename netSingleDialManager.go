@@ -69,9 +69,12 @@ func (self *netSingleDialManager) Start(_ context.Context) error {
 					self.CancellationContext,
 					cancellationContext,
 				}
-				cancelFunction := func(connectionId string, CancellationContext ...goCommsDefinitions.ICancellationContext) func() {
+				cancelFunction := func(
+					connectionId string,
+					CancellationContext ...goCommsDefinitions.ICancellationContext,
+				) func(cancelCtx goCommsDefinitions.ICancellationContext) {
 					b := false
-					return func() {
+					return func(cancelCtx goCommsDefinitions.ICancellationContext) {
 						if !b {
 							b = true
 							stopErr := instanceApp.Stop(context.Background())
