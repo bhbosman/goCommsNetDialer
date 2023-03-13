@@ -59,6 +59,7 @@ func NewSingleNetDialApp(
 							},
 						},
 					),
+					common.InvokeCancelContext(),
 					fx.Invoke(
 						func(
 							params struct {

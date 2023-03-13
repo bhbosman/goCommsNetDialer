@@ -12,6 +12,7 @@ import (
 	"golang.org/x/sync/semaphore"
 	"net"
 	"net/url"
+	"sync"
 	"time"
 )
 
@@ -72,9 +73,14 @@ func (self *netSingleDialManager) Start(_ context.Context) error {
 				cancelFunction := func(
 					connectionId string,
 					CancellationContext ...common.ICancellationContext,
-				) func(cancelCtx common.ICancellationContext) {
-					b := false
-					return func(cancelCtx common.ICancellationContext) {
+				) func() {
+					mutex := sync.Mutex{}
+					cancelCalled := false
+					return func() {
+						mutex.Lock()
+						b := cancelCalled
+						cancelCalled = true
+						mutex.Unlock()
 						if !b {
 							b = true
 							stopErr := instanceApp.Stop(context.Background())
