@@ -73,7 +73,6 @@ func NewSingleNetDialApp(
 						) {
 							hook := fx.Hook{
 								OnStart: func(ctx context.Context) error {
-									//params.NetManager.CancelCtx
 									return params.NetManager.Start(ctx)
 								},
 								OnStop: func(ctx context.Context) error {
