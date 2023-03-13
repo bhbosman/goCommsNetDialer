@@ -19,8 +19,7 @@ func NewSingleNetDialApp(
 				cancelFunc := func() {}
 				dialSettings := &DialAppSettings{
 					NetManagerSettings: common.NewNetManagerSettings(1),
-					//userContext:        nil,
-					canDial: nil,
+					canDial:            nil,
 				}
 
 				for _, option := range options {
@@ -39,7 +38,7 @@ func NewSingleNetDialApp(
 						}
 					}
 				}
-				ddd
+
 				callbackForConnectionInstance, err := dialSettings.Build()
 				if err != nil {
 					return nil, nil, err
