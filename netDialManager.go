@@ -1,6 +1,7 @@
 package goCommsNetDialer
 
 import (
+	"context"
 	"github.com/bhbosman/goConnectionManager"
 	"github.com/bhbosman/gocommon/GoFunctionCounter"
 	"github.com/bhbosman/gocommon/Services/interfaces"
@@ -11,7 +12,6 @@ import (
 	"go.uber.org/fx"
 	"go.uber.org/multierr"
 	"go.uber.org/zap"
-	"golang.org/x/net/context"
 	"golang.org/x/net/proxy"
 	"net/url"
 )

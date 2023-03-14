@@ -1,6 +1,7 @@
 package goCommsNetDialer
 
 import (
+	"context"
 	"github.com/bhbosman/goConnectionManager"
 	"github.com/bhbosman/gocommon/GoFunctionCounter"
 	"github.com/bhbosman/gocommon/Services/IFxService"
@@ -9,7 +10,6 @@ import (
 	"github.com/bhbosman/gocomms/common"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
-	"golang.org/x/net/context"
 	"net"
 	"net/url"
 	"time"
