@@ -72,7 +72,7 @@ func (self *netDialManager) dialll(dm iDialManager, releaseFunc func()) (message
 	}
 	onErr := func() {
 		if cancellationContext != nil {
-			cancellationContext.Cancel()
+			cancellationContext.Cancel("asdasdas")
 		}
 	}
 	if err != nil {
