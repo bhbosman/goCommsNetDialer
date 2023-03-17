@@ -2,12 +2,12 @@ package goCommsNetDialer
 
 import (
 	"context"
+	"github.com/bhbosman/goConn"
 	"github.com/bhbosman/goConnectionManager"
 	"github.com/bhbosman/gocommon/GoFunctionCounter"
 	"github.com/bhbosman/gocommon/Services/IFxService"
 	"github.com/bhbosman/gocommon/Services/interfaces"
 	"github.com/bhbosman/gocommon/messages"
-	"github.com/bhbosman/gocomms/common"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 	"net"
@@ -19,7 +19,7 @@ type NetMultiDialManager struct {
 	netDialManager
 }
 
-func (self NetMultiDialManager) Dial(releaseFunc func()) (messages.IApp, common.ICancellationContext, string, error) {
+func (self NetMultiDialManager) Dial(releaseFunc func()) (messages.IApp, goConn.ICancellationContext, string, error) {
 	var dm iDialManager = &net.Dialer{
 		Timeout: time.Second * 30,
 	}
@@ -39,7 +39,7 @@ func NewMultiNetDialManager(
 	ConnectionUrl *url.URL,
 	ConnectionManager goConnectionManager.IService,
 	CancelCtx context.Context,
-	CancellationContext common.ICancellationContext,
+	CancellationContext goConn.ICancellationContext,
 	ZapLogger *zap.Logger,
 	UniqueSessionNumber interfaces.IUniqueReferenceService,
 	ConnectionName string,

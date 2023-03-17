@@ -2,6 +2,7 @@ package goCommsNetDialer
 
 import (
 	"context"
+	"github.com/bhbosman/goConn"
 	"github.com/bhbosman/gocommon/messages"
 	"github.com/bhbosman/gocomms/common"
 	"go.uber.org/fx"
@@ -66,7 +67,7 @@ func NewSingleNetDialApp(
 								fx.In
 								NetManager          *netSingleDialManager
 								CancelFunction      context.CancelFunc
-								CancellationContext common.ICancellationContext
+								CancellationContext goConn.ICancellationContext
 								Lifecycle           fx.Lifecycle
 							},
 						) {

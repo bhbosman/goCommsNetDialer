@@ -2,6 +2,7 @@ package goCommsNetDialer
 
 import (
 	"context"
+	"github.com/bhbosman/goConn"
 	"github.com/bhbosman/goConnectionManager"
 	"github.com/bhbosman/gocommon/GoFunctionCounter"
 	"github.com/bhbosman/gocommon/Services/interfaces"
@@ -24,7 +25,7 @@ func (self *netDialManager) sock5(dialManager iDialManager) (iDialManager, error
 	return proxy.SOCKS5(self.ProxyUrl.Scheme, self.ProxyUrl.Host, nil, dialManager)
 }
 
-func (self *netDialManager) dialll(dm iDialManager, releaseFunc func()) (messages.IApp, common.ICancellationContext, string, error) {
+func (self *netDialManager) dialll(dm iDialManager, releaseFunc func()) (messages.IApp, goConn.ICancellationContext, string, error) {
 	conn, err := dm.Dial("tcp4", self.ConnectionUrl.Host)
 	if err != nil {
 		if releaseFunc != nil {
@@ -89,7 +90,7 @@ func newNetDialManager(
 	proxyUrl *url.URL,
 	connectionUrl *url.URL,
 	cancelCtx context.Context,
-	CancellationContext common.ICancellationContext,
+	CancellationContext goConn.ICancellationContext,
 	connectionManager goConnectionManager.IService,
 	ZapLogger *zap.Logger,
 	uniqueSessionNumber interfaces.IUniqueReferenceService,

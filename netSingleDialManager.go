@@ -2,11 +2,11 @@ package goCommsNetDialer
 
 import (
 	"context"
+	"github.com/bhbosman/goConn"
 	"github.com/bhbosman/goConnectionManager"
 	"github.com/bhbosman/gocommon/GoFunctionCounter"
 	"github.com/bhbosman/gocommon/Services/IFxService"
 	"github.com/bhbosman/gocommon/Services/interfaces"
-	"github.com/bhbosman/gocomms/common"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 	"golang.org/x/sync/semaphore"
@@ -66,13 +66,13 @@ func (self *netSingleDialManager) Start(_ context.Context) error {
 				// 2. from the service manager that can shut the whole dialing connection down
 				// For all two of this instances, we have to register the same method and make sure it is only executed once
 
-				cc := []common.ICancellationContext{
+				cc := []goConn.ICancellationContext{
 					self.CancellationContext,
 					cancellationContext,
 				}
 				cancelFunction := func(
 					connectionId string,
-					CancellationContext ...common.ICancellationContext,
+					CancellationContext ...goConn.ICancellationContext,
 				) func() {
 					mutex := sync.Mutex{}
 					cancelCalled := false
@@ -131,7 +131,7 @@ func newSingleNetDialManager(
 		ConnectionInstancePrefix                 string `name:"ConnectionInstancePrefix"`
 		AdditionalFxOptionsForConnectionInstance func() fx.Option
 		GoFunctionCounter                        GoFunctionCounter.IService
-		CancellationContext                      common.ICancellationContext
+		CancellationContext                      goConn.ICancellationContext
 	}) (*netSingleDialManager, error) {
 
 	if params.ConnectionManager.State() != IFxService.Started {

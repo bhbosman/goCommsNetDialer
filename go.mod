@@ -2,6 +2,8 @@ module github.com/bhbosman/goCommsNetDialer
 
 go 1.18
 
+require github.com/bhbosman/goConn v0.0.0-20230317052122-2eec27fd9bc8
+
 require (
 	github.com/bhbosman/goConnectionManager v0.0.0-20230312204225-183859f3cef5
 	github.com/bhbosman/gocommon v0.0.0-20230312205650-25cf8341f1c9
@@ -11,8 +13,6 @@ require (
 	golang.org/x/net v0.0.0-20211015210444-4f30a5c0130f
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 )
-
-require github.com/bhbosman/goConn v0.0.0-20230317052122-2eec27fd9bc8 // indirect
 
 require (
 	github.com/bhbosman/goCommsDefinitions v0.0.0-20230313180751-41613a6b3173 // indirect
@@ -37,8 +37,8 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-
 replace github.com/bhbosman/gocomms => ../gocomms
+
 replace github.com/bhbosman/goMessages => ../goMessages
 
 replace github.com/bhbosman/gocommon => ../gocommon
