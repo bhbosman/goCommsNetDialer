@@ -37,8 +37,8 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace github.com/bhbosman/gocomms => ../gocomms
 
+replace github.com/bhbosman/gocomms => ../gocomms
 replace github.com/bhbosman/goMessages => ../goMessages
 
 replace github.com/bhbosman/gocommon => ../gocommon
@@ -52,3 +52,5 @@ replace github.com/bhbosman/goerrors => ../goerrors
 replace github.com/bhbosman/goConnectionManager => ../goConnectionManager
 
 replace github.com/bhbosman/goprotoextra => ../goprotoextra
+
+replace github.com/bhbosman/goConn => ../goConn
