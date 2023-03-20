@@ -11,7 +11,6 @@ import (
 	"github.com/bhbosman/gocomms/common"
 	"github.com/bhbosman/gocomms/netBase"
 	"go.uber.org/fx"
-	"go.uber.org/multierr"
 	"go.uber.org/zap"
 	"golang.org/x/net/proxy"
 	"net/url"
@@ -53,31 +52,27 @@ func (self *netDialManager) dialll(dm iDialManager, releaseFunc func()) (message
 		return nil, nil, "", err
 	}
 
+	connectionId := self.UniqueSessionNumber.Next(self.ConnectionInstancePrefix)
+	namedLogger := self.ZapLogger.Named(connectionId)
+	ctx, cancelFunc := context.WithCancel(self.CancellationContext.CancelContext())
+	cancellationContext := goConn.NewCancellationContext(connectionId, cancelFunc, ctx, namedLogger, conn)
+
 	connectionInstance := netBase.NewConnectionInstance(
 		self.ConnectionUrl,
 		self.UniqueSessionNumber,
 		self.ConnectionManager,
-		self.CancelCtx,
+		cancellationContext,
 		self.AdditionalFxOptionsForConnectionInstance,
-		self.ZapLogger,
+		namedLogger,
 	)
-	connectionId := self.UniqueSessionNumber.Next(self.ConnectionInstancePrefix)
-	instanceApp, instanceAppCtx, cancellationContext, err := connectionInstance.NewConnectionInstance(
+	instanceApp, err := connectionInstance.NewConnectionInstance(
 		connectionId,
 		self.GoFunctionCounter,
 		model.ClientConnection,
 		conn,
 	)
-	if instanceAppCtx != nil {
-		err = multierr.Append(err, instanceAppCtx.Err())
-	}
-	onErr := func() {
-		if cancellationContext != nil {
-			cancellationContext.Cancel("asdasdas")
-		}
-	}
 	if err != nil {
-		onErr()
+		cancellationContext.CancelWithError("adasdas", err)
 		return nil, nil, "", err
 	}
 	return instanceApp, cancellationContext, connectionId, nil

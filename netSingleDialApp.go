@@ -15,12 +15,14 @@ func NewSingleNetDialApp(
 	return func(params common.NetAppFuncInParams) messages.CreateAppCallback {
 		return messages.CreateAppCallback{
 			Name: name,
-			Callback: func() (messages.IApp, context.CancelFunc, error) {
-				cancelFunc := func() {}
+			Callback: func() (messages.IApp, goConn.ICancellationContext, error) {
 				dialSettings := &DialAppSettings{
 					NetManagerSettings: common.NewNetManagerSettings(1),
 					canDial:            nil,
 				}
+				namedLogger := params.ZapLogger.Named(name)
+				ctx, cancelFunc := context.WithCancel(params.ParentContext)
+				cancellationContext := goConn.NewCancellationContext(name, cancelFunc, ctx, namedLogger, nil)
 
 				for _, option := range options {
 					if option == nil {
@@ -29,12 +31,12 @@ func NewSingleNetDialApp(
 					if dialAppSettingsApply, ok := option.(INetDialAppSettingsApply); ok {
 						err := dialAppSettingsApply.apply(dialSettings)
 						if err != nil {
-							return nil, cancelFunc, err
+							return nil, cancellationContext, err
 						}
 					} else {
 						err := option.ApplyNetManagerSettings(&dialSettings.NetManagerSettings)
 						if err != nil {
-							return nil, cancelFunc, err
+							return nil, cancellationContext, err
 						}
 					}
 				}
@@ -50,6 +52,8 @@ func NewSingleNetDialApp(
 					name,
 					name,
 					params,
+					cancellationContext,
+					namedLogger,
 					callbackForConnectionInstance,
 					fx.Options(dialSettings.MoreOptions...),
 					fx.Provide(fx.Annotated{Target: newSingleNetDialManager}),
@@ -85,7 +89,7 @@ func NewSingleNetDialApp(
 					),
 				)
 				fxApp := fx.New(connectionOptions)
-				return fxApp, cancelFunc, fxApp.Err()
+				return fxApp, cancellationContext, fxApp.Err()
 			},
 		}
 	}
