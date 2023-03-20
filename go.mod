@@ -9,7 +9,7 @@ require (
 	github.com/bhbosman/gocommon v0.0.0-20230312205650-25cf8341f1c9
 	github.com/bhbosman/gocomms v0.0.0-20220611042959-112035f663a7
 	go.uber.org/fx v1.19.2
-	go.uber.org/zap v1.23.0
+	go.uber.org/zap v1.24.0
 	golang.org/x/net v0.0.0-20211015210444-4f30a5c0130f
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 )
@@ -32,7 +32,7 @@ require (
 	github.com/teivah/onecontext v0.0.0-20200513185103-40f981bfd775 // indirect
 	go.uber.org/atomic v1.7.0 // indirect
 	go.uber.org/dig v1.16.1 // indirect
-	go.uber.org/multierr v1.10.0
+	go.uber.org/multierr v1.10.0 // indirect
 	golang.org/x/sys v0.0.0-20220520151302-bc2c85ada10a // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

@@ -55,8 +55,10 @@ func (self *netDialManager) dialll(dm iDialManager, releaseFunc func()) (message
 	connectionId := self.UniqueSessionNumber.Next(self.ConnectionInstancePrefix)
 	namedLogger := self.ZapLogger.Named(connectionId)
 	ctx, cancelFunc := context.WithCancel(self.CancellationContext.CancelContext())
-	cancellationContext := goConn.NewCancellationContext(connectionId, cancelFunc, ctx, namedLogger, conn)
-
+	cancellationContext, err := goConn.NewCancellationContext(connectionId, cancelFunc, ctx, namedLogger, conn)
+	if err != nil {
+		return nil, nil, "", err
+	}
 	connectionInstance := netBase.NewConnectionInstance(
 		self.ConnectionUrl,
 		self.UniqueSessionNumber,
