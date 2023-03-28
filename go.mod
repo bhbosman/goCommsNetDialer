@@ -2,7 +2,7 @@ module github.com/bhbosman/goCommsNetDialer
 
 go 1.18
 
-require github.com/bhbosman/goConn v0.0.0-20230317052122-2eec27fd9bc8
+require github.com/bhbosman/goConn v0.0.0-20230320102125-d7416dd8d6dc
 
 require (
 	github.com/bhbosman/goConnectionManager v0.0.0-20230312204225-183859f3cef5
@@ -18,7 +18,7 @@ require (
 	github.com/bhbosman/goCommsDefinitions v0.0.0-20230313180751-41613a6b3173 // indirect
 	github.com/bhbosman/goerrors v0.0.0-20220623084908-4d7bbcd178cf // indirect
 	github.com/bhbosman/gomessageblock v0.0.0-20230308173223-e8144f25444c // indirect
-	github.com/bhbosman/goprotoextra v0.0.1 // indirect
+	github.com/bhbosman/goprotoextra v0.0.2 // indirect
 	github.com/cenkalti/backoff/v4 v4.1.1 // indirect
 	github.com/cskr/pubsub v1.0.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
