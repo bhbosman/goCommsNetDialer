@@ -45,5 +45,4 @@ replace github.com/bhbosman/gocomms => ../gocomms
 
 replace github.com/bhbosman/goCommsDefinitions => ../goCommsDefinitions
 
-
 replace github.com/bhbosman/goConnectionManager => ../goConnectionManager
