@@ -2,12 +2,11 @@ module github.com/bhbosman/goCommsNetDialer
 
 go 1.18
 
-require github.com/bhbosman/goConn v0.0.0-20230327111455-7a39299fb0aa
-
 require (
+	github.com/bhbosman/goConn v0.0.0-20230327111455-7a39299fb0aa
 	github.com/bhbosman/goConnectionManager v0.0.0-20230312204225-183859f3cef5
 	github.com/bhbosman/gocommon v0.0.0-20230328220050-dafaab862dd2
-	github.com/bhbosman/gocomms v0.0.0-20220611042959-112035f663a7
+	github.com/bhbosman/gocomms v0.0.0-20230328221033-4231cc0340d0
 	go.uber.org/fx v1.19.2
 	go.uber.org/zap v1.24.0
 	golang.org/x/net v0.0.0-20211015210444-4f30a5c0130f
@@ -41,8 +40,8 @@ replace github.com/golang/mock => github.com/bhbosman/gomock v1.6.1-0.2023030206
 
 replace github.com/cskr/pubsub => github.com/bhbosman/pubsub v1.0.3-0.20220802200819-029949e8a8af
 
-replace github.com/bhbosman/gocomms => ../gocomms
+//replace github.com/bhbosman/gocomms => ../gocomms
 
-replace github.com/bhbosman/goCommsDefinitions => ../goCommsDefinitions
+//replace github.com/bhbosman/goCommsDefinitions => ../goCommsDefinitions
 
 replace github.com/bhbosman/goConnectionManager => ../goConnectionManager
