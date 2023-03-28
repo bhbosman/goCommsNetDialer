@@ -6,7 +6,7 @@ require github.com/bhbosman/goConn v0.0.0-20230327111455-7a39299fb0aa
 
 require (
 	github.com/bhbosman/goConnectionManager v0.0.0-20230312204225-183859f3cef5
-	github.com/bhbosman/gocommon v0.0.0-20230328150634-566a0f916878
+	github.com/bhbosman/gocommon v0.0.0-20230328205958-d21444a729d1
 	github.com/bhbosman/gocomms v0.0.0-20220611042959-112035f663a7
 	go.uber.org/fx v1.19.2
 	go.uber.org/zap v1.24.0
@@ -44,6 +44,5 @@ replace github.com/cskr/pubsub => github.com/bhbosman/pubsub v1.0.3-0.2022080220
 replace github.com/bhbosman/gocomms => ../gocomms
 
 replace github.com/bhbosman/goCommsDefinitions => ../goCommsDefinitions
-
 
 replace github.com/bhbosman/goConnectionManager => ../goConnectionManager
