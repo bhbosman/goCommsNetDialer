@@ -2,7 +2,7 @@ module github.com/bhbosman/goCommsNetDialer
 
 go 1.18
 
-require github.com/bhbosman/goConn v0.0.0-20230320102125-d7416dd8d6dc
+require require github.com/bhbosman/goConn v0.0.0-20230327111455-7a39299fb0aa
 
 require (
 	github.com/bhbosman/goConnectionManager v0.0.0-20230312204225-183859f3cef5
