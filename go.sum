@@ -4,10 +4,12 @@ github.com/benbjohnson/clock v1.3.0 h1:ip6w0uFQkncKQ979AypyG0ER7mqUSBdKLOgAle/AT
 github.com/benbjohnson/clock v1.3.0/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=
 github.com/bhbosman/goCommsDefinitions v0.0.0-20220801175552-c5aa68065af3/go.mod h1:37dZwNUF+PlfFbSnYP4tGXIELeZom5mRWfTBr9mNOPE=
 github.com/bhbosman/goCommsDefinitions v0.0.0-20230308211643-24fe88b2378e/go.mod h1:tkd0ohtBBlomjgZrSj1K7YHT6zb0td0X6v6Tv/kn/wA=
-github.com/bhbosman/goCommsDefinitions v0.0.0-20230313180751-41613a6b3173 h1:RXYfi2gJvcEuaewfGT8GQkGp1v6nZnwIi6Q+RI94gkQ=
-github.com/bhbosman/goCommsDefinitions v0.0.0-20230313180751-41613a6b3173/go.mod h1:tkd0ohtBBlomjgZrSj1K7YHT6zb0td0X6v6Tv/kn/wA=
-github.com/bhbosman/goConn v0.0.0-20230327111455-7a39299fb0aa h1:7lakH1tzJ/EocZSdCWYF5LIH+ySs6egdupZLHTqjrD4=
-github.com/bhbosman/goConn v0.0.0-20230327111455-7a39299fb0aa/go.mod h1:ls316tsU4UUuVGmhpn30sbd702HbPHYTn0ATQavKGEk=
+github.com/bhbosman/goCommsDefinitions v0.0.0-20230320101758-971a50fdbf8c h1:Ky8YIMW9ns/H0JnE/V1Xflib/texmWIoCSYNMSsf25Q=
+github.com/bhbosman/goCommsDefinitions v0.0.0-20230320101758-971a50fdbf8c/go.mod h1:vbCOElN9jFdYC0z8KZXGvrVWDRmcPZYwhDLoMfkvD9A=
+github.com/bhbosman/goConn v0.0.0-20230328145648-e6bab0984275 h1:mb8udNg6G36PPdwH7R2XM1cdIo+cy7l59wMURJPXrSQ=
+github.com/bhbosman/goConn v0.0.0-20230328145648-e6bab0984275/go.mod h1:IqnusjHk+667VfU4wKbfTTf0RDInttgjpkuN02P0C4U=
+github.com/bhbosman/goConnectionManager v0.0.0-20230328221032-2e48eb2721d0 h1:JgFkHqqe4A053Gi7Zkcu0B6Hs8Zj1pwKjed2MXhwmaY=
+github.com/bhbosman/goConnectionManager v0.0.0-20230328221032-2e48eb2721d0/go.mod h1:Gm7Jj1TTD18FvkICm3qMgenc0DLrt7RBxnU5jcN5qb8=
 github.com/bhbosman/gocommon v0.0.0-20230328220050-dafaab862dd2 h1:hbrkHNVqMuV3QVNX2K8nSa+Fo7cnwxEkr/F5XCsNMvc=
 github.com/bhbosman/gocommon v0.0.0-20230328220050-dafaab862dd2/go.mod h1:9Ry2YCYcx5uCfWmzDNKtzWb4Tobz0jDrTSqnRd1XqWA=
 github.com/bhbosman/gocomms v0.0.0-20230328221033-4231cc0340d0 h1:8nI12UVJxJHuQyexNTWMfn2fuRSGj/LgyvEYaMIOZzg=
