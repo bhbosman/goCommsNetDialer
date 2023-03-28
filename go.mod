@@ -49,8 +49,6 @@ replace github.com/bhbosman/gocomms => ../gocomms
 
 replace github.com/bhbosman/goMessages => ../goMessages
 
-//replace github.com/bhbosman/gocommon => ../gocommon
-
 
 replace github.com/bhbosman/goCommsDefinitions => ../goCommsDefinitions
 
@@ -58,5 +56,3 @@ replace github.com/bhbosman/goerrors => ../goerrors
 
 replace github.com/bhbosman/goConnectionManager => ../goConnectionManager
 
-
-replace github.com/bhbosman/goConn => ../goConn
