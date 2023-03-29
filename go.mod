@@ -3,7 +3,6 @@ module github.com/bhbosman/goCommsNetDialer
 go 1.18
 
 require (
-
 	github.com/bhbosman/goConnectionManager v0.0.0-20230328221032-2e48eb2721d0
 	github.com/bhbosman/gocommon v0.0.0-20230329101749-40db0f52d859
 	github.com/bhbosman/gocomms v0.0.0-20230328221033-4231cc0340d0
@@ -15,6 +14,7 @@ require (
 
 require (
 	github.com/bhbosman/goCommsDefinitions v0.0.0-20230320101758-971a50fdbf8c // indirect
+	github.com/bhbosman/goConn v0.0.0-20230327111455-7a39299fb0aa // indirect
 	github.com/bhbosman/goerrors v0.0.0-20220623084908-4d7bbcd178cf // indirect
 	github.com/bhbosman/gomessageblock v0.0.0-20230308173223-e8144f25444c // indirect
 	github.com/bhbosman/goprotoextra v0.0.2 // indirect
@@ -43,18 +43,17 @@ replace (
 	github.com/rivo/tview => github.com/bhbosman/tview v0.0.0-20230310100135-f8b257a85d36
 )
 
-replace (
-	github.com/bhbosman/goCommonMarketData => ../goCommonMarketData
-	github.com/bhbosman/goCommsDefinitions => ../goCommsDefinitions
-	github.com/bhbosman/goCommsMultiDialer => ../goCommsMultiDialer
-	github.com/bhbosman/goCommsNetDialer => ../goCommsNetDialer
-	github.com/bhbosman/goCommsNetListener => ../goCommsNetListener
-	github.com/bhbosman/goCommsStacks => ../goCommsStacks
-
-	github.com/bhbosman/goFxApp => ../goFxApp
-	github.com/bhbosman/goFxAppManager => ../goFxAppManager
-	github.com/bhbosman/goMessages => ../goMessages
-	github.com/bhbosman/gocommon => ../gocommon
-	github.com/bhbosman/gocomms => ../gocomms
-	github.com/bhbosman/gomessageblock => ../gomessageblock
-)
+//replace (
+//	github.com/bhbosman/goCommonMarketData => ../goCommonMarketData
+//	github.com/bhbosman/goCommsDefinitions => ../goCommsDefinitions
+//	github.com/bhbosman/goCommsMultiDialer => ../goCommsMultiDialer
+//	github.com/bhbosman/goCommsNetDialer => ../goCommsNetDialer
+//	github.com/bhbosman/goCommsNetListener => ../goCommsNetListener
+//	github.com/bhbosman/goCommsStacks => ../goCommsStacks
+//	github.com/bhbosman/goFxApp => ../goFxApp
+//	github.com/bhbosman/goFxAppManager => ../goFxAppManager
+//	github.com/bhbosman/goMessages => ../goMessages
+//	github.com/bhbosman/gocommon => ../gocommon
+//	github.com/bhbosman/gocomms => ../gocomms
+//	github.com/bhbosman/gomessageblock => ../gomessageblock
+//)
