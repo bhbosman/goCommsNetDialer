@@ -5,7 +5,6 @@ import (
 	"github.com/bhbosman/goConn"
 	"github.com/bhbosman/goConnectionManager"
 	"github.com/bhbosman/gocommon/GoFunctionCounter"
-	"github.com/bhbosman/gocommon/messages"
 	"github.com/bhbosman/gocommon/services/IFxService"
 	"github.com/bhbosman/gocommon/services/interfaces"
 	"go.uber.org/fx"
@@ -19,7 +18,7 @@ type NetMultiDialManager struct {
 	netDialManager
 }
 
-func (self NetMultiDialManager) Dial(releaseFunc func()) (messages.IApp, goConn.ICancellationContext, string, error) {
+func (self NetMultiDialManager) Dial(releaseFunc func()) (goConn.IApp, goConn.ICancellationContext, string, error) {
 	var dm iDialManager = &net.Dialer{
 		Timeout: time.Second * 30,
 	}

@@ -5,7 +5,6 @@ import (
 	"github.com/bhbosman/goConn"
 	"github.com/bhbosman/goConnectionManager"
 	"github.com/bhbosman/gocommon/GoFunctionCounter"
-	"github.com/bhbosman/gocommon/messages"
 	"github.com/bhbosman/gocommon/model"
 	"github.com/bhbosman/gocommon/services/interfaces"
 	"github.com/bhbosman/gocomms/common"
@@ -24,7 +23,7 @@ func (self *netDialManager) sock5(dialManager iDialManager) (iDialManager, error
 	return proxy.SOCKS5(self.ProxyUrl.Scheme, self.ProxyUrl.Host, nil, dialManager)
 }
 
-func (self *netDialManager) dialll(dm iDialManager, releaseFunc func()) (messages.IApp, goConn.ICancellationContext, string, error) {
+func (self *netDialManager) dialll(dm iDialManager, releaseFunc func()) (goConn.IApp, goConn.ICancellationContext, string, error) {
 	conn, err := dm.Dial("tcp4", self.ConnectionUrl.Host)
 	if err != nil {
 		if releaseFunc != nil {

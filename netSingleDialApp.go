@@ -3,7 +3,6 @@ package goCommsNetDialer
 import (
 	"context"
 	"github.com/bhbosman/goConn"
-	"github.com/bhbosman/gocommon/messages"
 	"github.com/bhbosman/gocomms/common"
 	"go.uber.org/fx"
 	"time"
@@ -12,10 +11,10 @@ import (
 func NewSingleNetDialApp(
 	name string,
 	options ...common.INetManagerSettingsApply) common.NetAppFuncInParamsCallback {
-	return func(params common.NetAppFuncInParams) messages.CreateAppCallback {
-		return messages.CreateAppCallback{
+	return func(params common.NetAppFuncInParams) goConn.CreateAppCallback {
+		return goConn.CreateAppCallback{
 			Name: name,
-			Callback: func() (messages.IApp, goConn.ICancellationContext, error) {
+			Callback: func() (goConn.IApp, goConn.ICancellationContext, error) {
 				dialSettings := &DialAppSettings{
 					NetManagerSettings: common.NewNetManagerSettings(1),
 					canDial:            nil,
