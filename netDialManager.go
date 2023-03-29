@@ -2,8 +2,8 @@ package goCommsNetDialer
 
 import (
 	"context"
-	"github.com/bhbosman/goConn"
 	"github.com/bhbosman/goConnectionManager"
+	"github.com/bhbosman/gocommon"
 	"github.com/bhbosman/gocommon/GoFunctionCounter"
 	"github.com/bhbosman/gocommon/model"
 	"github.com/bhbosman/gocommon/services/interfaces"
@@ -23,7 +23,7 @@ func (self *netDialManager) sock5(dialManager iDialManager) (iDialManager, error
 	return proxy.SOCKS5(self.ProxyUrl.Scheme, self.ProxyUrl.Host, nil, dialManager)
 }
 
-func (self *netDialManager) dialll(dm iDialManager, releaseFunc func()) (goConn.IApp, goConn.ICancellationContext, string, error) {
+func (self *netDialManager) dialll(dm iDialManager, releaseFunc func()) (gocommon.IApp, gocommon.ICancellationContext, string, error) {
 	conn, err := dm.Dial("tcp4", self.ConnectionUrl.Host)
 	if err != nil {
 		if releaseFunc != nil {
@@ -54,7 +54,7 @@ func (self *netDialManager) dialll(dm iDialManager, releaseFunc func()) (goConn.
 	connectionId := self.UniqueSessionNumber.Next(self.ConnectionInstancePrefix)
 	namedLogger := self.ZapLogger.Named(connectionId)
 	ctx, cancelFunc := context.WithCancel(self.CancellationContext.CancelContext())
-	cancellationContext, err := goConn.NewCancellationContext(connectionId, cancelFunc, ctx, namedLogger, conn)
+	cancellationContext, err := gocommon.NewCancellationContext(connectionId, cancelFunc, ctx, namedLogger, conn)
 	if err != nil {
 		return nil, nil, "", err
 	}
@@ -86,7 +86,7 @@ func newNetDialManager(
 	proxyUrl *url.URL,
 	connectionUrl *url.URL,
 	cancelCtx context.Context,
-	CancellationContext goConn.ICancellationContext,
+	CancellationContext gocommon.ICancellationContext,
 	connectionManager goConnectionManager.IService,
 	ZapLogger *zap.Logger,
 	uniqueSessionNumber interfaces.IUniqueReferenceService,

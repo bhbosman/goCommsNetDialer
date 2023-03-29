@@ -2,7 +2,7 @@ package goCommsNetDialer
 
 import (
 	"context"
-	"github.com/bhbosman/goConn"
+	"github.com/bhbosman/gocommon"
 	"github.com/bhbosman/gocomms/common"
 	"go.uber.org/fx"
 	"time"
@@ -11,17 +11,17 @@ import (
 func NewSingleNetDialApp(
 	name string,
 	options ...common.INetManagerSettingsApply) common.NetAppFuncInParamsCallback {
-	return func(params common.NetAppFuncInParams) goConn.CreateAppCallback {
-		return goConn.CreateAppCallback{
+	return func(params common.NetAppFuncInParams) gocommon.CreateAppCallback {
+		return gocommon.CreateAppCallback{
 			Name: name,
-			Callback: func() (goConn.IApp, goConn.ICancellationContext, error) {
+			Callback: func() (gocommon.IApp, gocommon.ICancellationContext, error) {
 				dialSettings := &DialAppSettings{
 					NetManagerSettings: common.NewNetManagerSettings(1),
 					canDial:            nil,
 				}
 				namedLogger := params.ZapLogger.Named(name)
 				ctx, cancelFunc := context.WithCancel(params.ParentContext)
-				cancellationContext, err := goConn.NewCancellationContextNoCloser(name, cancelFunc, ctx, namedLogger)
+				cancellationContext, err := gocommon.NewCancellationContextNoCloser(name, cancelFunc, ctx, namedLogger)
 				if err != nil {
 					return nil, nil, err
 				}
@@ -72,7 +72,7 @@ func NewSingleNetDialApp(
 								fx.In
 								NetManager          *netSingleDialManager
 								CancelFunction      context.CancelFunc
-								CancellationContext goConn.ICancellationContext
+								CancellationContext gocommon.ICancellationContext
 								Lifecycle           fx.Lifecycle
 							},
 						) {

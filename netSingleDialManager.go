@@ -2,8 +2,8 @@ package goCommsNetDialer
 
 import (
 	"context"
-	"github.com/bhbosman/goConn"
 	"github.com/bhbosman/goConnectionManager"
+	"github.com/bhbosman/gocommon"
 	"github.com/bhbosman/gocommon/GoFunctionCounter"
 	"github.com/bhbosman/gocommon/services/IFxService"
 	"github.com/bhbosman/gocommon/services/interfaces"
@@ -66,13 +66,13 @@ func (self *netSingleDialManager) Start(_ context.Context) error {
 				// 2. from the service manager that can shut the whole dialing connection down
 				// For all two of this instances, we have to register the same method and make sure it is only executed once
 
-				cc := []goConn.ICancellationContext{
+				cc := []gocommon.ICancellationContext{
 					self.CancellationContext,
 					cancellationContext,
 				}
 				cancelFunction := func(
 					connectionId string,
-					CancellationContext ...goConn.ICancellationContext,
+					CancellationContext ...gocommon.ICancellationContext,
 				) func() {
 					mutex := sync.Mutex{}
 					cancelCalled := false
@@ -131,7 +131,7 @@ func newSingleNetDialManager(
 		ConnectionInstancePrefix                 string `name:"ConnectionInstancePrefix"`
 		AdditionalFxOptionsForConnectionInstance func() fx.Option
 		GoFunctionCounter                        GoFunctionCounter.IService
-		CancellationContext                      goConn.ICancellationContext
+		CancellationContext                      gocommon.ICancellationContext
 	}) (*netSingleDialManager, error) {
 
 	if params.ConnectionManager.State() != IFxService.Started {
