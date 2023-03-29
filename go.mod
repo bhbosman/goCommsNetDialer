@@ -5,7 +5,7 @@ go 1.18
 require (
 
 	github.com/bhbosman/goConnectionManager v0.0.0-20230328221032-2e48eb2721d0
-	github.com/bhbosman/gocommon v0.0.0-20230328230250-805500c476ac
+	github.com/bhbosman/gocommon v0.0.0-20230329101749-40db0f52d859
 	github.com/bhbosman/gocomms v0.0.0-20230328221033-4231cc0340d0
 	go.uber.org/fx v1.19.2
 	go.uber.org/zap v1.24.0
