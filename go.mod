@@ -6,11 +6,11 @@ toolchain go1.24.0
 
 require (
 	github.com/bhbosman/goConnectionManager v0.0.0-20250307224538-a79ceb218fd0
-	github.com/bhbosman/gocommon v0.0.0-20230507180205-b30f653fb84c
+	github.com/bhbosman/gocommon v0.0.0-20250307235859-f370cb0a3bac
 	github.com/bhbosman/gocomms v0.0.0-20230730212408-04ba72ddb372
 	go.uber.org/fx v1.23.0
 	go.uber.org/zap v1.27.0
-	golang.org/x/net v0.0.0-20211019232329-c6ed85c7a12d
+	golang.org/x/net v0.37.0
 	golang.org/x/sync v0.12.0
 )
 
