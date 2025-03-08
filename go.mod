@@ -3,9 +3,9 @@ module github.com/bhbosman/goCommsNetDialer
 go 1.24.0
 
 require (
-	github.com/bhbosman/goConnectionManager v0.0.0-20250308194756-b3c21d488492
+	github.com/bhbosman/goConnectionManager v0.0.0-20250308201033-1df6054ada09
 	github.com/bhbosman/gocommon v0.0.0-20250308194442-9c45d7859806
-	github.com/bhbosman/gocomms v0.0.0-20250308192115-8af5b0178806
+	github.com/bhbosman/gocomms v0.0.0-20250308201104-6179c9241408
 	go.uber.org/fx v1.23.0
 	go.uber.org/zap v1.27.0
 	golang.org/x/net v0.37.0
