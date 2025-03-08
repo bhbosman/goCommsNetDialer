@@ -4,7 +4,7 @@ go 1.24.0
 
 require (
 	github.com/bhbosman/goConnectionManager v0.0.0-20250308150558-5d463bc5c9e3
-	github.com/bhbosman/gocommon v0.0.0-20250308150148-56b7e6e14bff
+	github.com/bhbosman/gocommon v0.0.0-20250308155359-4baa9bec452e
 	github.com/bhbosman/gocomms v0.0.0-20250308152759-52892cbe374f
 	go.uber.org/fx v1.23.0
 	go.uber.org/zap v1.27.0
